@@ -4,17 +4,12 @@ import './ListLocation.css'
 
 class ListLocation extends Component {
   state = {
-    filter: '',
-    getLocations: this.props.locations
+    filter: ''
   }
 
   handleChange = (e) => {
-    const regexp = new RegExp(e.target.value, 'i')
-
     this.setState({filter: e.target.value})
-    this.setState((state, props) => ({
-      getLocations: props.locations.filter(el => regexp.test(el.title))
-    }))
+    this.props.onChange(e.target.value)
   }
 
   handleListClick = (loc) => {
@@ -34,7 +29,7 @@ class ListLocation extends Component {
         <p>Filter: {this.state.filter}</p>
 
         <ul>
-          {this.state.getLocations.map(loc => (
+          {this.props.locations.map(loc => (
             <li
               key={loc.title}
               onClick={() => this.handleListClick(loc)}>

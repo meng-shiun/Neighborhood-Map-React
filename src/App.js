@@ -1,19 +1,30 @@
 import React, { Component } from 'react'
+import * as GoogleMapAPI from './api/GoogleMapAPI'
 import Map from './components/Map'
 import ListLocation from './components/ListLocation'
 
 import './App.css'
 
-const defaultLocations = [
-  {title: 'Park Ave Penthouse', location: {lat: 40.7713024, lng: -73.9632393}},
-  {title: 'Chelsea Loft', location: {lat: 40.7444883, lng: -73.9949465}},
-  {title: 'Union Square Open Floor Plan', location: {lat: 40.7347062, lng: -73.9895759}},
-  {title: 'East Village Hip Studio', location: {lat: 40.7281777, lng: -73.984377}},
-  {title: 'TriBeCa Artsy Bachelor Pad', location: {lat: 40.7195264, lng: -74.0089934}},
-  {title: 'Chinatown Homey Space', location: {lat: 40.7180628, lng: -73.9961237}}
-];
-
 class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      displayLocations: []
+    }
+  }
+
+  updateListLocations = (filter) => {
+    const regexp = new RegExp(filter, 'i')
+    const arr = GoogleMapAPI.getAllLocations()
+    this.setState({
+      displayLocations: arr.filter(loc => regexp.test(loc.title))
+    })
+  }
+
+  componentDidMount() {
+    this.setState({displayLocations: GoogleMapAPI.getAllLocations()})
+  }
+
   render() {
     return (
       <div className="App">
@@ -21,13 +32,19 @@ class App extends Component {
           <h1 className="App-title">Neighborhood Map</h1>
         </header>
 
+        {this.state.displayLocations && (this.state.displayLocations.map(c => (
+          <h4 key={c.title}>{c.title}</h4>
+        )))}
         <ListLocation
-          locations={defaultLocations}
+          locations={this.state.displayLocations}
+          onChange={this.updateListLocations}
           />
-
-        <Map/>
       </div>
     );
   }
 }
+
+// <Map
+//   locations={this.state.displayLocations}
+//   />
 export default App;
