@@ -1,7 +1,13 @@
 import React, { Component } from 'react'
 
-const Marker = (props) => {
+class Marker extends Component {
 
+  render() {
+    const marker = this.props.marker
+    return (
+      <li>[Marker]{marker.title}</li>
+    )
+  }
 
 }
 

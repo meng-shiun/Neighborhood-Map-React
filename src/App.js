@@ -19,6 +19,11 @@ class App extends Component {
     this.setState({
       displayLocations: arr.filter(loc => regexp.test(loc.title))
     })
+    this.updateMarkers()
+  }
+
+  updateMarkers = () => {
+    console.log('update!!!');
   }
 
   componentDidMount() {
@@ -35,10 +40,15 @@ class App extends Component {
         {this.state.displayLocations && (this.state.displayLocations.map(c => (
           <h4 key={c.title}>{c.title}</h4>
         )))}
+
         <ListLocation
           locations={this.state.displayLocations}
           onChange={this.updateListLocations}
           />
+
+          <Map
+            locations={this.state.displayLocations}
+            />
       </div>
     );
   }
