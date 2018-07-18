@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import * as GoogleMapAPI from '../api/GoogleMapAPI'
-import Marker from './Marker'
+// import Marker from './Marker'
 
 class Map extends Component {
   constructor(props) {
@@ -14,7 +14,44 @@ class Map extends Component {
   }
 
   componentDidMount() {
-    GoogleMapAPI.createGoogleMapDOM().then(this.createInitMap)
+    GoogleMapAPI.createMapDOM().then(this.createInitMap)
+  }
+
+  componentDidUpdate(nextProps, nextState) {
+    if (this.props.locations !== nextProps.locations) {
+      this.filterMarkers(this.props.locations)
+    }
+    if (this.props.activeMarker !== nextProps.activeMarker) {
+      GoogleMapAPI.showInfoWindow(this, null, this.props.activeMarker)
+    }
+  }
+
+  createInitMap = () => {
+    // TODO: move initMap to GoogleMapAPI
+    window.initMap = () => {
+      const google = window.google
+      const infoWindow = new google.maps.InfoWindow()
+      this.map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 13,
+        center: {lat: 40.7180628, lng: -73.9961237}
+      })
+
+      this.setState({
+        google: google,
+        map: this.map,
+        infoWindow: infoWindow
+      })
+
+      GoogleMapAPI.createMarkers(this)
+      .then( markers => {
+        this.setState({markers: markers})
+        markers.forEach(marker => {
+          GoogleMapAPI.showInfoWindow(this, marker, null)
+        })
+      })
+
+      this.filterMarkers(this.state.markers)
+    }
   }
 
   filterMarkers = (markers) => {
@@ -30,7 +67,8 @@ class Map extends Component {
 
   infoWindowContent = (marker) => {
     // TODO: show detail via place API
-    const { google, map, infoWindow, markers } = this.state
+    const { google, map, infoWindow } = this.state
+
     infoWindow.setContent("<b>" + marker.title + "</b>")
     infoWindow.open(map, marker)
     marker.setAnimation(google.maps.Animation.BOUNCE)
@@ -39,72 +77,16 @@ class Map extends Component {
     }, 800)
   }
 
-  showInfoWindow = (marker, listItem) => {
-    // Show infoWindow when clicking on marker
-    if (marker !== null) {
-      marker.addListener('click', () => {
-        this.infoWindowContent(marker)
-      })
-    }
-    // Show infoWindow when clicking on list item
-    if (listItem !== null) {
-      this.state.markers.forEach( marker => {
-        (marker.title === listItem) && this.infoWindowContent(marker)
-      })
-    }
-  }
-
-  createInitMap = () => {
-    window.initMap = () => {
-      const google = window.google
-      const infoWindow = new google.maps.InfoWindow()
-      this.map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 13,
-        center: {lat: 40.7180628, lng: -73.9961237}
-      })
-
-      this.setState({
-        google: google,
-        map: this.map,
-        infoWindow: infoWindow
-      })
-
-      const tempMarkers = []
-      GoogleMapAPI.getAllLocations().forEach(loc => {
-        const marker = new google.maps.Marker({
-          position: loc.location,
-          title: loc.title
-        })
-        tempMarkers.push(marker)
-        // Open info window
-        this.setState({ markers: tempMarkers })
-        this.showInfoWindow(marker, null)
-      })
-
-      this.filterMarkers(this.state.markers)
-    }
-  }
-
-  componentDidUpdate(nextProps, nextState) {
-    if (this.props.locations !== nextProps.locations) {
-      this.filterMarkers(this.props.locations)
-    }
-    if (this.props.activeMarker !== nextProps.activeMarker) {
-      this.showInfoWindow(null, this.props.activeMarker)
-    }
-  }
-
-
   render() {
-    const { locations } = this.props
-
+    const mapStyle = {width: '1400px', height: '1000px'}
     return (
       <div>
-        <div id="map" style={{width: '1200px', height: '600px'}}></div>
+        <div id="map" style={mapStyle}></div>
       </div>
     )
   }
 
+  // const { locations } = this.props
   // {locations.map(marker => (
   //   <Marker
   //     key={marker.title}

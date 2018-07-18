@@ -12,6 +12,47 @@ const defaultLocations = [
 
 export const getAllLocations = () => defaultLocations
 
+export const createMarkers = (arg) =>
+  new Promise(resolve => {
+    const { google, map } = arg.state
+    const markers = []
+    defaultLocations.forEach(loc => {
+      const marker = new google.maps.Marker({
+        position: loc.location,
+        title: loc.title,
+        map: map
+      })
+      markers.push(marker)
+    })
+    resolve(markers)
+  })
+
+
+export const showInfoWindow = (arg, marker, listItem) =>
+  new Promise(resolve => {
+    // Show infoWindow when clicking on marker
+    marker && marker.addListener('click', () => infoWindowContent(arg, marker))
+
+    // Show infoWindow when clicking on list item
+    listItem && (
+      arg.state.markers.forEach( marker => {
+        (marker.title === listItem) && infoWindowContent(arg, marker)
+      })
+    )
+    resolve(marker)
+  })
+
+
+const infoWindowContent = (arg, marker) => {
+  const { google, map, infoWindow } = arg.state
+  infoWindow.setContent("<b>" + marker.title + "</b>")
+  infoWindow.open(map, marker)
+  marker.setAnimation(google.maps.Animation.BOUNCE)
+  window.setTimeout(() => {
+    marker.setAnimation(null)
+  }, 800)
+}
+
 const createMarker = (loc, google, map) =>
   new Promise(resolve => {
     const marker = new google.maps.Marker({
@@ -50,7 +91,7 @@ export const createInitMap = (locations) => {
   }
 }
 
-export const createGoogleMapDOM = () =>
+export const createMapDOM = () =>
   new Promise(resolve => {
     const script = document.createElement('script')
     script.src = `${api}?key=${key}&callback=initMap`

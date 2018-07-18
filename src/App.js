@@ -6,23 +6,17 @@ import ListLocation from './components/ListLocation'
 import './App.css'
 
 class App extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      displayLocations: [],
-      selectedMarker: '' // TODO: show infoWindow when this state changes
-    }
+  state = {
+    displayLocations: [],
+    selectedListItem: ''
   }
 
   updateListLocations = (filter) => {
     const arr = GoogleMapAPI.getAllLocations()
     let regexp
 
-    try {
-      regexp = new RegExp(filter, 'i')
-    } catch(e) {
-      return false
-    }
+    try { regexp = new RegExp(filter, 'i') }
+    catch(e) { return false }
 
     this.setState({
       displayLocations: arr.filter(loc => regexp.test(loc.title))
@@ -30,23 +24,12 @@ class App extends Component {
   }
 
   handleListItemClick = (locationTitle) => {
-    console.log('select:', locationTitle)
-    this.setState({selectedMarker: locationTitle})
+    this.setState({selectedListItem: locationTitle})
   }
 
   componentDidMount() {
     this.setState({displayLocations: GoogleMapAPI.getAllLocations()})
   }
-
-  // componentDidUpdate(nextProps, nextState) {
-  //   if (this.state.displayLocations !== nextState.displayLocations) {
-  //     this.mapChange()
-  //   }
-  // }
-  //
-  // mapChange = () => {
-  //   console.log('change')
-  // }
 
   render() {
     return (
@@ -59,13 +42,12 @@ class App extends Component {
           locations={this.state.displayLocations}
           onChange={this.updateListLocations}
           onListItemClick={this.handleListItemClick}
-          />
+        />
 
-          <Map
-            locations={this.state.displayLocations}
-            onChange={this.mapChange}
-            activeMarker={this.state.selectedMarker}
-            />
+        <Map
+          locations={this.state.displayLocations}
+          activeMarker={this.state.selectedListItem}
+        />
       </div>
     );
   }

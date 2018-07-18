@@ -22,3 +22,9 @@ src/
     ListLocation.js
     ListLocation.css
 ```
+
+## TODO:
+- Foursquare API
+- css
+- accessibility
+- service worker

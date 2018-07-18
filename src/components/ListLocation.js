@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import * as GoogleMapAPI from '../api/GoogleMapAPI'
+// import * as GoogleMapAPI from '../api/GoogleMapAPI'
 import './ListLocation.css'
 
 
