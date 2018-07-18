@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import * as GoogleMapAPI from '../api/GoogleMapAPI'
 import './ListLocation.css'
 
 
@@ -13,10 +14,11 @@ class ListLocation extends Component {
   }
 
   handleListClick = (loc) => {
-    console.log('select:', loc);
+    this.props.onListItemClick(loc.title)
   }
 
   render() {
+    const { locations } = this.props
     return (
       <div className='list-location'>
         <input
@@ -29,7 +31,7 @@ class ListLocation extends Component {
         <p>Filter: {this.state.filter}</p>
 
         <ul>
-          {this.props.locations.map(loc => (
+          {locations.map(loc => (
             <li
               key={loc.title}
               onClick={() => this.handleListClick(loc)}>

@@ -9,21 +9,29 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      displayLocations: []
+      displayLocations: [],
+      selectedMarker: '' // TODO: show infoWindow when this state changes
     }
   }
 
   updateListLocations = (filter) => {
-    const regexp = new RegExp(filter, 'i')
     const arr = GoogleMapAPI.getAllLocations()
+    let regexp
+
+    try {
+      regexp = new RegExp(filter, 'i')
+    } catch(e) {
+      return false
+    }
+
     this.setState({
       displayLocations: arr.filter(loc => regexp.test(loc.title))
     })
-    this.updateMarkers()
   }
 
-  updateMarkers = () => {
-    console.log('update!!!');
+  handleListItemClick = (locationTitle) => {
+    console.log('select:', locationTitle)
+    this.setState({selectedMarker: locationTitle})
   }
 
   componentDidMount() {
@@ -47,25 +55,20 @@ class App extends Component {
           <h1 className="App-title">Neighborhood Map</h1>
         </header>
 
-        {this.state.displayLocations && (this.state.displayLocations.map(c => (
-          <h4 key={c.title}>{c.title}</h4>
-        )))}
-
         <ListLocation
           locations={this.state.displayLocations}
           onChange={this.updateListLocations}
+          onListItemClick={this.handleListItemClick}
           />
 
           <Map
             locations={this.state.displayLocations}
             onChange={this.mapChange}
+            activeMarker={this.state.selectedMarker}
             />
       </div>
     );
   }
 }
 
-// <Map
-//   locations={this.state.displayLocations}
-//   />
 export default App;
