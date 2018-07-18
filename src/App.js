@@ -30,6 +30,16 @@ class App extends Component {
     this.setState({displayLocations: GoogleMapAPI.getAllLocations()})
   }
 
+  // componentDidUpdate(nextProps, nextState) {
+  //   if (this.state.displayLocations !== nextState.displayLocations) {
+  //     this.mapChange()
+  //   }
+  // }
+  //
+  // mapChange = () => {
+  //   console.log('change')
+  // }
+
   render() {
     return (
       <div className="App">
@@ -48,6 +58,7 @@ class App extends Component {
 
           <Map
             locations={this.state.displayLocations}
+            onChange={this.mapChange}
             />
       </div>
     );
