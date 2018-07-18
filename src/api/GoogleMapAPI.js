@@ -12,6 +12,16 @@ const defaultLocations = [
 
 export const getAllLocations = () => defaultLocations
 
+export const createMapDOM = () =>
+  new Promise(resolve => {
+    const script = document.createElement('script')
+    script.src = `${api}?key=${key}&callback=initMap`
+    script.async = true
+    script.defer = true
+    document.body.appendChild(script)
+    resolve()
+  })
+
 export const createMarkers = (arg) =>
   new Promise(resolve => {
     const { google, map } = arg.state
@@ -27,6 +37,16 @@ export const createMarkers = (arg) =>
     resolve(markers)
   })
 
+export const filterMarkers = (arg, markers) => {
+  const allMarkers = arg.state.markers
+  const filteredMarkers = []
+  markers.forEach(marker => allMarkers.forEach(m =>
+    (m.title === marker.title) && filteredMarkers.push(m)
+  ))
+  allMarkers.forEach(m =>
+    filteredMarkers.includes(m) ? m.setMap(arg.state.map) : m.setMap(null)
+  )
+}
 
 export const showInfoWindow = (arg, marker, listItem) =>
   new Promise(resolve => {
@@ -43,6 +63,7 @@ export const showInfoWindow = (arg, marker, listItem) =>
   })
 
 
+// TODO: show detail via place API
 const infoWindowContent = (arg, marker) => {
   const { google, map, infoWindow } = arg.state
   infoWindow.setContent("<b>" + marker.title + "</b>")
@@ -90,13 +111,3 @@ export const createInitMap = (locations) => {
     )
   }
 }
-
-export const createMapDOM = () =>
-  new Promise(resolve => {
-    const script = document.createElement('script')
-    script.src = `${api}?key=${key}&callback=initMap`
-    script.async = true
-    script.defer = true
-    document.body.appendChild(script)
-    resolve()
-  })
