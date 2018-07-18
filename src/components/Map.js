@@ -28,11 +28,12 @@ class Map extends Component {
 
   createInitMap = () => {
     window.initMap = () => {
+      const center = {lat: 59.326822, lng: 18.071719}
       const google = window.google
       const infoWindow = new google.maps.InfoWindow()
       this.map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 13,
-        center: {lat: 40.7180628, lng: -73.9961237}
+        zoom: 14,
+        center: center
       })
 
       this.setState({

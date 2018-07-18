@@ -1,16 +1,19 @@
 const api = 'https://maps.googleapis.com/maps/api/js'
 const key = 'AIzaSyBmHl5CVuXDrPwakKYbAAFvuVlvFmRQwJ8'
 
-const defaultLocations = [
-  {title: 'Park Ave Penthouse', location: {lat: 40.7713024, lng: -73.9632393}},
-  {title: 'Chelsea Loft', location: {lat: 40.7444883, lng: -73.9949465}},
-  {title: 'Union Square Open Floor Plan', location: {lat: 40.7347062, lng: -73.9895759}},
-  {title: 'East Village Hip Studio', location: {lat: 40.7281777, lng: -73.984377}},
-  {title: 'TriBeCa Artsy Bachelor Pad', location: {lat: 40.7195264, lng: -74.0089934}},
-  {title: 'Chinatown Homey Space', location: {lat: 40.7180628, lng: -73.9961237}}
+const stockholmArea = [
+  {title: 'Hötorgshallen', location: {lat: 59.33406, lng: 18.062898}},
+  {title: 'Vasa Museum', location: {lat: 59.328023, lng: 18.091396}},
+  {title: 'Djurgården', location: {lat: 59.326284, lng: 18.113215}},
+  {title: 'Stockholms Gästabud', location: {lat: 59.325669, lng: 18.073964}},
+  {title: 'Vete-Katten', location: {lat: 59.33411, lng: 18.058331}},
+  {title: 'Hermans Vegetarian Restaurant', location: {lat: 59.317585, lng: 18.084}},
+  {title: 'The Royal Palace', location: {lat: 59.326822, lng: 18.071719}},
+  {title: 'Stockholm City Hall', location: {lat: 59.327451, lng: 18.054346}},
+  {title: 'Radisson Blu Waterfront Hotel', location: {lat: 59.330103, lng: 18.055915}}
 ];
 
-export const getAllLocations = () => defaultLocations
+export const getAllLocations = () => stockholmArea
 
 export const createMapDOM = () =>
   new Promise(resolve => {
@@ -26,7 +29,8 @@ export const createMarkers = (arg) =>
   new Promise(resolve => {
     const { google, map } = arg.state
     const markers = []
-    defaultLocations.forEach(loc => {
+
+    stockholmArea.forEach(loc => {
       const marker = new google.maps.Marker({
         position: loc.location,
         title: loc.title,
@@ -40,6 +44,7 @@ export const createMarkers = (arg) =>
 export const filterMarkers = (arg, markers) => {
   const allMarkers = arg.state.markers
   const filteredMarkers = []
+
   markers.forEach(marker => allMarkers.forEach(m =>
     (m.title === marker.title) && filteredMarkers.push(m)
   ))
@@ -52,7 +57,6 @@ export const showInfoWindow = (arg, marker, listItem) =>
   new Promise(resolve => {
     // Show infoWindow when clicking on marker
     marker && marker.addListener('click', () => infoWindowContent(arg, marker))
-
     // Show infoWindow when clicking on list item
     listItem && (
       arg.state.markers.forEach( marker => {
@@ -66,48 +70,11 @@ export const showInfoWindow = (arg, marker, listItem) =>
 // TODO: show detail via place API
 const infoWindowContent = (arg, marker) => {
   const { google, map, infoWindow } = arg.state
+
   infoWindow.setContent("<b>" + marker.title + "</b>")
   infoWindow.open(map, marker)
   marker.setAnimation(google.maps.Animation.BOUNCE)
   window.setTimeout(() => {
     marker.setAnimation(null)
   }, 800)
-}
-
-const createMarker = (loc, google, map) =>
-  new Promise(resolve => {
-    const marker = new google.maps.Marker({
-      position: loc.location,
-      map: map,
-      title: loc.title,
-      animation: google.maps.Animation.DROP
-    })
-    resolve(marker)
-  })
-
-const openInfoWindow = (google, map, marker, infoWindow) => {
-  google.maps.event.addListener(marker, 'click', () => {
-    infoWindow.setContent("<b>" + marker.title + "</b>")
-    infoWindow.open(map, marker)
-    marker.setAnimation(google.maps.Animation.BOUNCE)
-    window.setTimeout(() => {
-      marker.setAnimation(null)
-    }, 800)
-  })
-}
-
-export const createInitMap = (locations) => {
-  window.initMap = () => {
-    const google = window.google
-    const infoWindow = new google.maps.InfoWindow()
-    const myTown = {lat: 40.7413549, lng: -73.9980244}
-    const map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 13,
-      center: myTown
-    })
-
-    locations.forEach(location => createMarker(location, google, map)
-      .then(marker => openInfoWindow(google, map, marker, infoWindow))
-    )
-  }
 }
