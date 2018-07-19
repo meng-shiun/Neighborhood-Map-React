@@ -67,11 +67,25 @@ export const showInfoWindow = (arg, marker, listItem) =>
   })
 
 
-// TODO: show detail via place API
 const infoWindowContent = (arg, marker) => {
   const { google, map, infoWindow } = arg.state
 
-  infoWindow.setContent("<b>" + marker.title + "</b>")
+  const title = marker.title
+  const category = (marker.details) ? marker.details.category : 'category'
+  const address = (marker.details) ? marker.details.address[0] : 'address'
+  const city = (marker.details) ? marker.details.address[1] : 'city'
+  const country = (marker.details && marker.details.address[2]) ? marker.details.address[2] : 'country'
+  const icon = (marker.details) ? marker.details.icon : 'icon'
+
+  let content = `
+  <b>${title}</b>
+  <p class='category'>${category}</p>
+  <img src="${icon}" alt="${category}"/>
+  <p>${address}</p>
+  <p>${city}</p>
+  <p>${country}</p>
+  `
+  infoWindow.setContent(content)
   infoWindow.open(map, marker)
   marker.setAnimation(google.maps.Animation.BOUNCE)
   window.setTimeout(() => {

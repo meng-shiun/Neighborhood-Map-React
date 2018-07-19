@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import * as GoogleMapAPI from '../api/GoogleMapAPI'
+import * as FoursquareAPI from '../api/FoursquareAPI'
 // import Marker from './Marker'
 
 class Map extends Component {
@@ -46,6 +47,8 @@ class Map extends Component {
         this.setState({markers: markers})
 
         markers.forEach(marker => {
+          // Add details to marker after sending FoursquareAPI request
+          FoursquareAPI.getPlaceInfo(marker.title).then(data => marker.details = data)
           GoogleMapAPI.showInfoWindow(this, marker, null)
         })
       })
