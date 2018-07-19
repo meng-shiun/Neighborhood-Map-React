@@ -67,6 +67,7 @@ export const showInfoWindow = (arg, marker, listItem) =>
   })
 
 
+// TODO: make infoWindow component
 const infoWindowContent = (arg, marker) => {
   const { google, map, infoWindow } = arg.state
 

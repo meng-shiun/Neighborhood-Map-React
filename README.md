@@ -15,10 +15,9 @@ src/
     FoursquareAPI.js
     GoogleMapAPI.js
   components/
+    InfoWindow.js
     Map.js
     Map.css
-    SearchBar.js
-    SearchBar.css
     ListLocation.js
     ListLocation.css
 ```

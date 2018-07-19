@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import * as GoogleMapAPI from './api/GoogleMapAPI'
 import Map from './components/Map'
 import ListLocation from './components/ListLocation'
+import InfoWindow from './components/InfoWindow'
 
 import './App.css'
 
@@ -48,6 +49,8 @@ class App extends Component {
           locations={this.state.displayLocations}
           activeMarker={this.state.selectedListItem}
         />
+
+        <InfoWindow/>
       </div>
     );
   }
