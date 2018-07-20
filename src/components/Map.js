@@ -31,7 +31,9 @@ class Map extends Component {
     window.initMap = () => {
       const center = {lat: 59.326822, lng: 18.071719}
       const google = window.google
-      const infoWindow = new google.maps.InfoWindow()
+      const infoWindow = new google.maps.InfoWindow({
+        content: '<div id="info-window-wrapper"></div>'
+      })
       this.map = new google.maps.Map(document.getElementById('map'), {
         zoom: 14,
         center: center

@@ -23,7 +23,7 @@ export const getPlaceInfo = (query) =>
       const venue = data.response.groups[0].items[0].venue
       details.category = venue.categories[0].name
       details.address = venue.location.formattedAddress
-      details.icon = venue.categories[0].icon.prefix + 'bg_32' + venue.categories[0].icon.suffix
+      details.icon = venue.categories[0].icon.prefix + '32' + venue.categories[0].icon.suffix
       resolve(details)
     })
     .catch(() => reject('fail to call foursquare API'))

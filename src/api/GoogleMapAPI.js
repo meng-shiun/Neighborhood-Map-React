@@ -1,3 +1,5 @@
+// import * as InfoWindow from '../components/InfoWindow';
+
 const api = 'https://maps.googleapis.com/maps/api/js'
 const key = 'AIzaSyBmHl5CVuXDrPwakKYbAAFvuVlvFmRQwJ8'
 
@@ -57,15 +59,16 @@ export const showInfoWindow = (arg, marker, listItem) =>
   new Promise(resolve => {
     // Show infoWindow when clicking on marker
     marker && marker.addListener('click', () => infoWindowContent(arg, marker))
+    // marker && marker.addListener('click', () => InfoWindow.infoWindowContent(arg, marker))
     // Show infoWindow when clicking on list item
     listItem && (
       arg.state.markers.forEach( marker => {
         (marker.title === listItem) && infoWindowContent(arg, marker)
+        // (marker.title === listItem) && InfoWindow.infoWindowContent(arg, marker)
       })
     )
     resolve(marker)
   })
-
 
 // TODO: make infoWindow component
 const infoWindowContent = (arg, marker) => {
@@ -74,18 +77,23 @@ const infoWindowContent = (arg, marker) => {
   const title = marker.title
   const category = (marker.details) ? marker.details.category : 'category'
   const address = (marker.details) ? marker.details.address[0] : 'address'
-  const city = (marker.details) ? marker.details.address[1] : 'city'
-  const country = (marker.details && marker.details.address[2]) ? marker.details.address[2] : 'country'
-  const icon = (marker.details) ? marker.details.icon : 'icon'
+  const city = (marker.details) ? marker.details.address[1] : ''
+  const country = (marker.details && marker.details.address[2]) ? marker.details.address[2] : ''
+  const icon = (marker.details) ? marker.details.icon : ''
 
   let content = `
-  <b>${title}</b>
-  <p class='category'>${category}</p>
+  <div class='iw-title'>
   <img src="${icon}" alt="${category}"/>
+  <h4>${title}</h4>
+  </div>
+  <div class='iw-category'>${category}</div>
+  <div class='address'>
   <p>${address}</p>
   <p>${city}</p>
   <p>${country}</p>
+  </div>
   `
+
   infoWindow.setContent(content)
   infoWindow.open(map, marker)
   marker.setAnimation(google.maps.Animation.BOUNCE)
