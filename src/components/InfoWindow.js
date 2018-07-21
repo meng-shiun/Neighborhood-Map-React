@@ -18,14 +18,14 @@ export const displayContent = (arg, marker) => {
         <h4>${title}</h4>
       </div>
       <div class='iw-category'>${category}</div>
-      <div class='address'>
+      <div class='iw-address'>
         <p>${address}</p>
         <p>${city}</p>
         <p>${country}</p>
       </div>
     </div>
   `
-  
+
   infoWindow.setContent(content)
   infoWindow.open(map, marker)
   marker.setAnimation(google.maps.Animation.BOUNCE)
