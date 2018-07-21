@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import * as GoogleMapAPI from '../api/GoogleMapAPI'
 import * as FoursquareAPI from '../api/FoursquareAPI'
-// import Marker from './Marker'
+import * as InfoWindow from './InfoWindow'
 
 class Map extends Component {
   constructor(props) {
@@ -31,9 +31,7 @@ class Map extends Component {
     window.initMap = () => {
       const center = {lat: 59.326822, lng: 18.071719}
       const google = window.google
-      const infoWindow = new google.maps.InfoWindow({
-        content: '<div id="info-window-wrapper"></div>'
-      })
+      const infoWindow = new google.maps.InfoWindow()
       this.map = new google.maps.Map(document.getElementById('map'), {
         zoom: 14,
         center: center
@@ -50,8 +48,8 @@ class Map extends Component {
 
         markers.forEach(marker => {
           // Add details to marker after sending FoursquareAPI request
-          FoursquareAPI.getPlaceInfo(marker.title).then(data => marker.details = data)
           GoogleMapAPI.showInfoWindow(this, marker, null)
+          FoursquareAPI.getPlaceInfo(marker.title).then(data => marker.details = data)
         })
       })
     }
@@ -65,15 +63,6 @@ class Map extends Component {
       </div>
     )
   }
-
-  // const { locations } = this.props
-  // {locations.map(marker => (
-  //   <Marker
-  //     key={marker.title}
-  //     onClick={() => {}}
-  //     marker={marker}
-  //     />
-  // ))}
 }
 
 export default Map

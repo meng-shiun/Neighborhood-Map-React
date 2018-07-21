@@ -5,6 +5,20 @@ body {
   font-family: sans-serif;
 }
 
+#tempWindow {
+  width: 200px;
+  height: 300px;
+  float: right;
+  /* background-color: red; */
+  /* z-index: 1000; */
+}
+
+.no {
+  float: right;
+  height: 500px;
+  background-color: red;
+  z-index: 1000;
+}
 /* TODO: move infoWindow style to infoWindow.css */
 .gm-style-iw {
   color: #4d4647;

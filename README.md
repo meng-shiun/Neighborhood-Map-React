@@ -16,6 +16,7 @@ src/
     GoogleMapAPI.js
   components/
     InfoWindow.js
+    InfoWindow.css
     Map.js
     Map.css
     ListLocation.js
@@ -23,9 +24,6 @@ src/
 ```
 
 ## TODO:
-- Foursquare API
-  (categories/ address/ details/ like)
-- Use Place API to get photo
 - Add 'img/foursquare_attr.png' as attribute logo "Powered By *logo* Foursquare"
 - css
 - accessibility

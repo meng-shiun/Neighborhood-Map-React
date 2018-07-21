@@ -1,4 +1,4 @@
-// import * as InfoWindow from '../components/InfoWindow';
+import * as InfoWindow from '../components/InfoWindow';
 
 const api = 'https://maps.googleapis.com/maps/api/js'
 const key = 'AIzaSyBmHl5CVuXDrPwakKYbAAFvuVlvFmRQwJ8'
@@ -58,46 +58,12 @@ export const filterMarkers = (arg, markers) => {
 export const showInfoWindow = (arg, marker, listItem) =>
   new Promise(resolve => {
     // Show infoWindow when clicking on marker
-    marker && marker.addListener('click', () => infoWindowContent(arg, marker))
-    // marker && marker.addListener('click', () => InfoWindow.infoWindowContent(arg, marker))
+    marker && marker.addListener('click', () => InfoWindow.displayContent(arg, marker))
     // Show infoWindow when clicking on list item
     listItem && (
       arg.state.markers.forEach( marker => {
-        (marker.title === listItem) && infoWindowContent(arg, marker)
-        // (marker.title === listItem) && InfoWindow.infoWindowContent(arg, marker)
+        (marker.title === listItem) && InfoWindow.displayContent(arg, marker)
       })
     )
     resolve(marker)
   })
-
-// TODO: make infoWindow component
-const infoWindowContent = (arg, marker) => {
-  const { google, map, infoWindow } = arg.state
-
-  const title = marker.title
-  const category = (marker.details) ? marker.details.category : 'category'
-  const address = (marker.details) ? marker.details.address[0] : 'address'
-  const city = (marker.details) ? marker.details.address[1] : ''
-  const country = (marker.details && marker.details.address[2]) ? marker.details.address[2] : ''
-  const icon = (marker.details) ? marker.details.icon : ''
-
-  let content = `
-  <div class='iw-title'>
-  <img src="${icon}" alt="${category}"/>
-  <h4>${title}</h4>
-  </div>
-  <div class='iw-category'>${category}</div>
-  <div class='address'>
-  <p>${address}</p>
-  <p>${city}</p>
-  <p>${country}</p>
-  </div>
-  `
-
-  infoWindow.setContent(content)
-  infoWindow.open(map, marker)
-  marker.setAnimation(google.maps.Animation.BOUNCE)
-  window.setTimeout(() => {
-    marker.setAnimation(null)
-  }, 800)
-}
