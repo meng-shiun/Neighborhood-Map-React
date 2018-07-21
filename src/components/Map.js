@@ -48,8 +48,8 @@ class Map extends Component {
 
         markers.forEach(marker => {
           // Add details to marker after sending FoursquareAPI request
-          GoogleMapAPI.showInfoWindow(this, marker, null)
           FoursquareAPI.getPlaceInfo(marker.title).then(data => marker.details = data)
+          GoogleMapAPI.showInfoWindow(this, marker, null)
         })
       })
     }

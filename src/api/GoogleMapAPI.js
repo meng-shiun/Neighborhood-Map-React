@@ -32,7 +32,7 @@ export const createMarkers = (arg) =>
     const { google, map } = arg.state
     const markers = []
 
-    stockholmArea.forEach(loc => {
+    getAllLocations().forEach(loc => {
       const marker = new google.maps.Marker({
         position: loc.location,
         title: loc.title,
