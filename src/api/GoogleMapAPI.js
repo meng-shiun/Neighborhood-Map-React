@@ -13,7 +13,7 @@ const stockholmArea = [
   {title: 'The Royal Palace', location: {lat: 59.326822, lng: 18.071719}},
   {title: 'Stockholm City Hall', location: {lat: 59.327451, lng: 18.054346}},
   {title: 'Radisson Blu Waterfront Hotel', location: {lat: 59.330103, lng: 18.055915}}
-];
+]
 
 export const getAllLocations = () => stockholmArea
 
@@ -55,15 +55,13 @@ export const filterMarkers = (arg, markers) => {
   )
 }
 
-export const showInfoWindow = (arg, marker, listItem) =>
-  new Promise(resolve => {
-    // Show infoWindow when clicking on marker
-    marker && marker.addListener('click', () => InfoWindow.displayContent(arg, marker))
-    // Show infoWindow when clicking on list item
-    listItem && (
-      arg.state.markers.forEach( marker => {
-        (marker.title === listItem) && InfoWindow.displayContent(arg, marker)
-      })
-    )
-    resolve(marker)
-  })
+export const showInfoWindow = (arg, marker, listItem) => {
+  // Show infoWindow when clicking on marker
+  marker && marker.addListener('click', () => InfoWindow.displayContent(arg, marker))
+  // Show infoWindow when clicking on list item
+  listItem && (
+    arg.state.markers.forEach( marker => {
+      (marker.title === listItem) && InfoWindow.displayContent(arg, marker)
+    })
+  )
+}

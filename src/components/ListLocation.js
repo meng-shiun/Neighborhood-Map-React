@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-// import * as GoogleMapAPI from '../api/GoogleMapAPI'
 import './ListLocation.css'
-
 
 class ListLocation extends Component {
   state = {
@@ -20,15 +18,13 @@ class ListLocation extends Component {
   render() {
     const { locations } = this.props
     return (
-      <div className='list-location'>
+      <section className='list-location'>
         <input
           type='text'
           value={this.state.filter}
-          placeholder='search location'
+          placeholder='Search location'
           onChange={this.handleChange}
           />
-
-        <p>Filter: {this.state.filter}</p>
 
         <ul>
           {locations.map(loc => (
@@ -39,7 +35,7 @@ class ListLocation extends Component {
             </li>
           ))}
         </ul>
-      </div>
+      </section>
     )
   }
 }

@@ -15,10 +15,10 @@ src/
     FoursquareAPI.js
     GoogleMapAPI.js
   components/
-    InfoWindow.js
-    InfoWindow.css
     Map.js
     Map.css
+    InfoWindow.js
+    InfoWindow.css
     ListLocation.js
     ListLocation.css
 ```
@@ -26,6 +26,7 @@ src/
 ## TODO:
 - Add 'img/foursquare_attr.png' as attribute logo "Powered By *logo* Foursquare"
 - css
+- add more places
 - accessibility
 - service worker
 

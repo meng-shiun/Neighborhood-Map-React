@@ -9,7 +9,7 @@ export const displayContent = (arg, marker) => {
   const category = details ? details.category: ''
   const address = details ? details.address[0]: ''
   const city = details ? details.address[1]: ''
-  const country = details ? details.address[2]: ''
+  const country = details ? details.address[2] : ''
 
   const content = `
     <div>
@@ -18,11 +18,11 @@ export const displayContent = (arg, marker) => {
         <h4>${title}</h4>
       </div>
       <div class='iw-category'>${category}</div>
-      <div class='iw-address'>
+      <address class='iw-address'>
         <p>${address}</p>
         <p>${city}</p>
-        <p>${country}</p>
-      </div>
+        <p>${country||''}</p>
+      </address>
     </div>
   `
 
