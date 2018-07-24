@@ -33,7 +33,10 @@ class Map extends Component {
       const infoWindow = new google.maps.InfoWindow()
       this.map = new google.maps.Map(document.getElementById('map'), {
         zoom: 14,
-        center: center
+        center: center,
+        mapTypeControlOptions: {
+          position: google.maps.ControlPosition.TOP_RIGHT
+        }
       })
 
       this.setState({
@@ -54,9 +57,8 @@ class Map extends Component {
   }
 
   render() {
-    const mapStyle = {width: '1400px', height: '1000px'}
     return (
-      <section id="map" style={mapStyle}></section>
+      <section id="map"></section>
     )
   }
 }

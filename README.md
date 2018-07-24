@@ -17,6 +17,7 @@ src/
   components/
     Map.js
     Map.css
+    BurgerMenu.js
     InfoWindow.js
     InfoWindow.css
     ListLocation.js
@@ -24,10 +25,9 @@ src/
 ```
 
 ## TODO:
-- Add 'img/foursquare_attr.png' as attribute logo "Powered By *logo* Foursquare"
-- css
 - add more places
 - accessibility
+https://www.youtube.com/watch?v=fGLp_gfMMGU&list=PLNYkxOF6rcICWx0C9LVWWVqvHlYJyqw7g&index=25
 - service worker
 
 - Google Map has issue on Firefox

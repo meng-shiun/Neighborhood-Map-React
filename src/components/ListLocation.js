@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import './ListLocation.css'
+import foursquareImg from '../images/powered-by-foursquare.svg'
 
 class ListLocation extends Component {
   state = {
@@ -19,13 +20,15 @@ class ListLocation extends Component {
     const { locations } = this.props
     return (
       <section className='list-location'>
+        <div className='list-title'>
+          <h1>Stockholm Highlights</h1>
+        </div>
         <input
           type='text'
           value={this.state.filter}
           placeholder='Search location'
           onChange={this.handleChange}
           />
-
         <ul>
           {locations.map(loc => (
             <li
@@ -35,6 +38,9 @@ class ListLocation extends Component {
             </li>
           ))}
         </ul>
+        <a href='https://developer.foursquare.com/' target='blank'>
+          <img src={foursquareImg} alt='powered-by-foursquare'/>
+        </a>
       </section>
     )
   }

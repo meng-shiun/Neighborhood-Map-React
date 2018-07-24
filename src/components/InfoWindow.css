@@ -4,14 +4,14 @@
 
 .iw-title {
   font-size: 1.1em;
-  color: #383435;
+  color: #3d3d3d;
   padding: 8px 0 4px 0;
   border-bottom: 1px solid #bab3b4;
 }
 
 .iw-title img {
   border-radius: 4px;
-  background-color: #73575e;
+  background-color: #5eb3d7;
 }
 
 .iw-title h4 {
@@ -20,11 +20,11 @@
 
 .iw-category {
   margin-top: 4px;
-  padding: 2px 0;
+  padding: 2px 6px;
   font-weight: 500;
   font-size: 1.1em;
   color: #fff;
-  background-color: #c23457;
+  background-color: #2284b9;
 }
 
 .iw-address {
