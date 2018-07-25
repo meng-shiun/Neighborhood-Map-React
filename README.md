@@ -25,9 +25,7 @@ src/
 ```
 
 ## TODO:
-- add more places
-- accessibility
-https://www.youtube.com/watch?v=fGLp_gfMMGU&list=PLNYkxOF6rcICWx0C9LVWWVqvHlYJyqw7g&index=25
 - service worker
+- add more places
 
 - Google Map has issue on Firefox

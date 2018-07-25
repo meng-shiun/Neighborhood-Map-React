@@ -12,33 +12,54 @@ class ListLocation extends Component {
     this.props.onChange(e.target.value)
   }
 
-  handleListClick = (loc) => {
-    this.props.onListItemClick(loc.title)
+  handleListClick = (e, loc) => {
+    (!e.keyCode || e.keyCode === 13 || e.keyCode === 32) &&
+      this.props.onListItemClick(loc.title)
   }
 
   render() {
-    const { locations } = this.props
+    const { locations, isTabPressed } = this.props
+
+    let inputClassName = 'no-focus-outline'
+    isTabPressed && (inputClassName = '')
+
+    let itemClassName = ''
+    isTabPressed && (itemClassName = 'loc-item')
+
     return (
       <section className='list-location'>
-        <div className='list-title'>
-          <h1>Stockholm Highlights</h1>
-        </div>
+        <header className='list-title'>
+          <h1 id='header'>Stockholm Highlights</h1>
+        </header>
+
         <input
-          type='text'
+          className={inputClassName}
+          type='search'
           value={this.state.filter}
           placeholder='Search location'
           onChange={this.handleChange}
+          aria-label='Search location in Stockholm'
           />
-        <ul>
+
+        <ul aria-labelledby='header'>
           {locations.map(loc => (
             <li
+              className={itemClassName}
               key={loc.title}
-              onClick={() => this.handleListClick(loc)}>
+              onClick={(e) => this.handleListClick(e, loc)}
+              onKeyDown={(e) => this.handleListClick(e, loc)}
+              tabIndex='0'
+              >
               {loc.title}
             </li>
           ))}
         </ul>
-        <a href='https://developer.foursquare.com/' target='blank'>
+
+        <a
+          href='https://developer.foursquare.com/'
+          target='blank'
+          tabIndex='0'
+          aria-label='Visit Foursquare page'>
           <img src={foursquareImg} alt='powered-by-foursquare'/>
         </a>
       </section>

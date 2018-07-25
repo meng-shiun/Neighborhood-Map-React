@@ -14,8 +14,9 @@
   background-color: #5eb3d7;
 }
 
-.iw-title h4 {
+.iw-title h2 {
   margin: 0.3em 0;
+  font-size: 1em;
 }
 
 .iw-category {

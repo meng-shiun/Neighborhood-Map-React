@@ -20,18 +20,26 @@
 
 .burger-menu {
   position: absolute;
-  top: 4px;
-  left: 10px;
+  top: 2px;
+  left: 4px;
   z-index: 100;
   font-size: 1.6em;
+  padding: 6px;
   cursor: pointer;
   color: #fcc914;
 }
 
 .burger-menu:hover,
-.burger-menu:active,
-.burger-menu:focus {
+.burger-menu:active {
   color: #f2e6bb;
+}
+
+.burger-menu:focus {
+  outline: 2px solid #fcc914;
+}
+
+.no-focus-outline {
+  outline: none !important;
 }
 
 #map {
@@ -45,8 +53,8 @@
   }
 
   .burger-menu {
-    top: -6px;
-    left: 6px;
+    top: -8px;
+    left: 0;
     font-size: 3em;
   }
 

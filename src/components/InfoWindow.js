@@ -14,8 +14,8 @@ export const displayContent = (arg, marker) => {
   const content = `
     <div>
       <div class='iw-title'>
-        <img src=${icon} alt="${category}"/>
-        <h4>${title}</h4>
+        <img src=${icon} alt='${category}'/>
+        <h2>${title}</h2>
       </div>
       <div class='iw-category'>${category}</div>
       <address class='iw-address'>

@@ -2,12 +2,15 @@ import React from 'react'
 import Bars from 'react-icons/lib/fa/bars'
 
 const BurgerMenu = (props) => {
+  let className = 'burger-menu no-focus-outline'
+  props.isTabPressed && (className = 'burger-menu')
+
   return (
-    <a
+    <button
       onClick={() => props.onMenuClick()}
-      className='burger-menu'>
+      className={className}>
       <Bars/>
-    </a>
+    </button>
   )
 }
 

@@ -11,7 +11,20 @@ class App extends Component {
   state = {
     displayLocations: [],
     selectedListItem: '',
-    isListOpen: false
+    isListOpen: false,
+    isTabPressed: false // For Ally
+  }
+
+  componentDidMount() {
+    this.setState({ displayLocations: GoogleMapAPI.getAllLocations() })
+
+    window.addEventListener('keyup', this.showFocusRing)
+    window.addEventListener('click', this.hideFocusRing)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keyup', this.showFocusRing)
+    window.removeEventListener('click', this.hideFocusRing)
   }
 
   updateListLocations = (filter) => {
@@ -34,8 +47,12 @@ class App extends Component {
     this.setState({ isListOpen: !this.state.isListOpen })
   }
 
-  componentDidMount() {
-    this.setState({ displayLocations: GoogleMapAPI.getAllLocations() })
+  showFocusRing = (e) => {
+    e.keyCode === 9 && this.setState({isTabPressed: true})
+  }
+
+  hideFocusRing = (e) => {
+    this.setState({isTabPressed: false})
   }
 
   render() {
@@ -44,24 +61,30 @@ class App extends Component {
     return (
       <main className="App">
         <div className="burgerMenu-wrapper">
-          <BurgerMenu onMenuClick={this.toggleListLocation}/>
         </div>
 
-        <BurgerMenu onMenuClick={this.toggleListLocation}/>
+        <nav>
+          <BurgerMenu
+            isTabPressed={this.state.isTabPressed}
+            tabIndex="0"
+            onMenuClick={this.toggleListLocation}
+          />
 
-        <CSSTransitionGroup
-          transitionName="slide-list"
-          transitionEnterTimeout={300}
-          transitionLeaveTimeout={300}
-          >
-          {isListOpen && (
-            <ListLocation
-              locations={displayLocations}
-              onChange={this.updateListLocations}
-              onListItemClick={this.handleListItemClick}
-            />
-          )}
-        </CSSTransitionGroup>
+          <CSSTransitionGroup
+            transitionName="slide-list"
+            transitionEnterTimeout={300}
+            transitionLeaveTimeout={300}
+            >
+            {isListOpen && (
+              <ListLocation
+                isTabPressed={this.state.isTabPressed}
+                locations={displayLocations}
+                onChange={this.updateListLocations}
+                onListItemClick={this.handleListItemClick}
+              />
+            )}
+          </CSSTransitionGroup>
+        </nav>
 
         <Map
           locations={displayLocations}

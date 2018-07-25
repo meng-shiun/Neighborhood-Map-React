@@ -34,7 +34,7 @@
 }
 
 input:focus {
-  outline: #4CAF50 solid 8px;
+  outline: #fcc914 solid 4px;
 }
 
 .list-location ul {
@@ -62,20 +62,31 @@ input:focus {
 }
 
 .list-location li:hover,
-.list-location li:active,
-.list-location li:focus {
+.list-location li:active {
   background-color: #2284b9;
 }
 
-.list-location img{
+.list-location li:focus {
+  outline: none;
+}
+
+.loc-item:focus {
+  background-color: #2284b9;
+}
+
+.list-location a {
   position: fixed;
   bottom: 1em;
   left: 2em;
   width: 200px;
+  padding: 6px;
+}
+
+.list-location a:focus {
+  outline: 2px solid #595959;
 }
 
 @media (max-width: 768px) {
-
   .list-title {
     height: 60px;
   }
