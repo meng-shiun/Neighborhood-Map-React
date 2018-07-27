@@ -5,16 +5,18 @@ export const displayContent = (arg, marker) => {
   const title = marker.title
   const details = marker.details
 
-  const icon = details ? details.icon : ''
   const category = details ? details.category: ''
   const address = details ? details.address[0]: ''
   const city = details ? details.address[1]: ''
   const country = details ? details.address[2] : ''
+  const icon = details
+    ? `<img src=${details.icon} alt='${details.category}'/>`
+    : ''
 
   const content = `
     <div>
       <div class='iw-title'>
-        <img src=${icon} alt='${category}'/>
+        ${icon}
         <h2>${title}</h2>
       </div>
       <div class='iw-category'>${category}</div>

@@ -15,6 +15,7 @@ class Map extends Component {
 
   componentDidMount() {
     GoogleMapAPI.createMapDOM().then(this.createInitMap)
+
   }
 
   componentDidUpdate(nextProps, nextState) {
@@ -27,6 +28,12 @@ class Map extends Component {
   }
 
   createInitMap = () => {
+    // When Google Map fails to load
+    window.gm_authFailure = () => {
+      alert('Google Map fails to load')
+      return
+    }
+
     window.initMap = () => {
       const center = {lat: 59.326822, lng: 18.071719}
       const google = window.google
