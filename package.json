@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://meng-shiun.github.io/Neighborhood-Map-React/",
   "dependencies": {
+    "gh-pages": "^1.2.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-icons": "^2.2.7",
