@@ -86,6 +86,10 @@ class App extends Component {
           </CSSTransitionGroup>
         </nav>
 
+        <div className="foursquare-alert">
+          <p>Currently unavailable to get location details from Foursquare, please try again later</p>
+        </div>
+
         <Map
           locations={displayLocations}
           activeMarker={selectedListItem}

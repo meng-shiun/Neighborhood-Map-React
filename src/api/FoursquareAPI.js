@@ -2,6 +2,14 @@ const venuesEndpoint = 'https://api.foursquare.com/v2/venues/explore?'
 const CLIENT_ID = 'DQBQP0GC2HOKEKB1O35AA3O5RM0GCSEV4QXHBRGOTQUAFHFV'
 const CLIENT_SECRET = 'LTZSNKRMXY55YGK1GBG33PDH5BTP5ZZMBI2STPMWXCBD2YLX'
 
+
+const handleErrors = (response) => {
+  if (!response.ok) {
+    document.querySelector('.foursquare-alert').style.display = 'block'
+  }
+  return response
+}
+
 export const getPlaceInfo = (query) =>
   new Promise((resolve, reject) => {
     const params = {
@@ -16,6 +24,7 @@ export const getPlaceInfo = (query) =>
     const url = venuesEndpoint + new URLSearchParams(params)
 
     fetch(url)
+    .then(handleErrors)
     .then(res => res.json())
     .then(data => {
       const details = {}
