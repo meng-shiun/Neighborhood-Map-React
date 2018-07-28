@@ -2,7 +2,7 @@
   "name": "neighborhood_map-react",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://meng-shiun.github.io/Neighborhood-Map-React",
+  "homepage": "https://meng-shiun.github.io/Neighborhood-Map-React/",
   "dependencies": {
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
@@ -12,7 +12,7 @@
   },
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -b master -d build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
