@@ -9,10 +9,12 @@ Users can filter locations and see more details by either clicking on the marker
 * `clone` this repo
 * install all project dependencies with `npm install`
 * start the development server with `npm start` or `yarn start`
+* [live](https://meng-shiun.github.io/Neighborhood-Map-React/)
 
 ## Resources
 
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app)
+
 Places API is provided by [Foursquare](https://developer.foursquare.com/)
 
 ## File Structure
@@ -29,9 +31,3 @@ components/
   ListLocation.js
   ListLocation.css
 ```
-
-## TODO:
-
-- Add more places
-- Run build
-- Fix Google Map issue on Firefox
